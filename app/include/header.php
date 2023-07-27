@@ -14,14 +14,28 @@
                     <li><a href="#">Services</a> </li>
 
                     <li>
-                        <a href="#">
-                            <i class="fa-regular fa-user"></i>
-                            Login
-                        </a>
-                        <ul>
-                            <li><a href="<?php echo BASE_URL . 'register.php'?>">Admin panel</a></li>
-                            <li><a href="#">Exit</a> </li>
-                        </ul>
+                        <?php if (isset($_SESSION['id'])): ?>
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                <?= $_SESSION['login']?>
+                            </a>
+
+                            <ul>
+                                <?php if ($_SESSION['admin']): ?>
+
+                                <li><a href="<?php echo BASE_URL . 'admin/admin.php'?>">Admin panel</a></li>
+                                <?php endif; ?>
+                                <li><a href="<?php echo BASE_URL . 'logout.php'?>">Exit</a> </li>
+                            </ul>
+                        <?php else: ?>
+                            <a href="<?php echo BASE_URL . 'login.php'?>">
+                                <i class="fa-regular fa-user"></i>
+                                Login
+                            </a>
+                            <ul>
+                                <li><a href="<?php echo BASE_URL . 'register.php'?>">Registration</a></li>
+                            </ul>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </nav>

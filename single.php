@@ -1,4 +1,7 @@
+<?php
+include "path.php" ;
 
+?>
 
 <!doctype html>
 <html lang="en">

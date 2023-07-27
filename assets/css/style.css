@@ -348,3 +348,10 @@ REGISTER
     transition: all .3s;
 
 }
+
+/*
+    FORMS ERROR
+*/
+.error {
+    color: red !important;
+}

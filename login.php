@@ -1,4 +1,7 @@
-<?php include("path.php") ?>
+<?php
+include "path.php" ;
+include "app/controllers/users.php";
+?>
 
 <!doctype html>
 <html lang="en">
@@ -17,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>My blog</title>
+    <title>My blog - Login </title>
 </head>
 <body>
 <!-- MENU-->
@@ -26,23 +29,26 @@
 
 
 <div class="container register_form">
-    <form class="row justify-content-center " action="auth.php" method="post">
+    <form class="row justify-content-center " action="login.php" method="post">
         <h2 class="">Login</h2>
+        <div class="mb-3 col-12 col-md-4 error">
+            <p> <?= $errMsg ?> </p>
+        </div>
+        <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleFormControlInput1" class="form-label">Login</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter login">
+            <input type="email" class="form-control" name="email"  placeholder="Enter your email" value = "<?= $email ?>">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" name="password">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <button type="submit" class="btn btn-secondary">Login</button>
             <a href="register.php">Register</a>
+            <button type="submit" class="btn btn-secondary" name="login_btn">Login</button>
         </div>
-
     </form>
 </div>
 

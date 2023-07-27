@@ -1,4 +1,7 @@
-<?php include("path.php") ?>
+<?php
+    include "path.php" ;
+    include "app/controllers/users.php";
+?>
 
 <!doctype html>
 <html lang="en">
@@ -17,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>My blog</title>
+    <title>My blog - Registration</title>
 </head>
 <body>
 <!-- MENU-->
@@ -28,29 +31,34 @@
 <div class="container register_form">
     <form class="row justify-content-center " action="register.php" method="post">
         <h2 class="">Register Form</h2>
+        <div class="A-100"></div>
+        <div class="mb-3 col-12 col-md-4 error">
+            <p> <?= $errMsg ?> </p>
+        </div>
+        <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleFormControlInput1" class="form-label">Login</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter login">
+            <input type="text" class="form-control" name="login" placeholder="Enter login" value = "<?= $login ?>">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" class="form-control" name="email" value = "<?= $email ?>">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" name="password">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleInputPasswordConfirm" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPasswordConfirm">
+            <input type="password" class="form-control" name="confirm_password">
         </div>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <button type="submit" class="btn btn-secondary">Submit</button>
-            <a href="auth.php">Login</a>
+            <button type="submit" class="btn btn-secondary" name="registration_btn">Submit</button>
+            <a href="login.php">Login</a>
         </div>
 
     </form>
