@@ -366,6 +366,10 @@ REGISTER
 /*
     ERROR
 */
-.error {
+.err ul {
     color: red;
+    list-style-type:none;
+}
+.text-center .err ul li {
+    margin-left: -120px;
 }

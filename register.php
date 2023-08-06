@@ -28,12 +28,12 @@
 
 
 
-<div class="container register_form">
-    <form class="row justify-content-center " action="register.php" method="post">
-        <h2 class="">Register Form</h2>
-        <div class="A-100"></div>
+<div class="container register_form ">
+     <h2 class="">Register Form</h2>
+     <div class="text-center">
         <?php include 'app/helpers/errorInfo.php' ?>
-        <div class="A-100"></div>
+     </div>
+    <form class="row justify-content-center " action="register.php" method="post">
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleFormControlInput1" class="form-label">Login</label>
             <input type="text" class="form-control" name="login" placeholder="Enter login" value = "<?= $login ?>">

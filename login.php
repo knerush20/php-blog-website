@@ -27,10 +27,11 @@ include 'app/controllers/users.php';
 <?php include 'app/include/header.php' ?>
 
 <div class="container register_form">
-    <form class="row justify-content-center " action="login.php" method="post">
-        <h2 class="">Login</h2>
+    <h2 class="">Login</h2>
+    <div class="text-center">
         <?php include 'app/helpers/errorInfo.php' ?>
-        <div class="A-100"></div>
+    </div>
+    <form class="row justify-content-center " action="login.php" method="post">
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleFormControlInput1" class="form-label">Login</label>
             <input type="email" class="form-control" name="email"  placeholder="Enter your email" value = "<?= $email ?>">
