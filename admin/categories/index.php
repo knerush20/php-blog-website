@@ -26,13 +26,13 @@ include SITE_ROOT . '/app/controllers/categories.php';
 </head>
 <body>
 <!-- MENU-->
-<?php include SITE_ROOT . '../../app/include/header-admin.php' ?>
+<?php include SITE_ROOT . '/app/include/header-admin.php' ?>
 
 
 <div class="container">
 
     <div class="row">
-        <?php include SITE_ROOT . '../../app/include/sidebar-admin.php' ?>
+        <?php include SITE_ROOT . '/app/include/sidebar-admin.php' ?>
 
 
         <div class="posts col-9">
