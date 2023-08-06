@@ -1,7 +1,18 @@
 <?php
-include("path.php");
+    include 'path.php';
+    include 'app/controllers/categories.php';
 
-include "app/database/db.php";
+    $page  = $_GET['page'] ?? 1;
+    $limit = 2;
+    $offset = $limit * ($page - 1);
+    $totalPages= round(countRow('posts') / $limit, 0);
+
+    if ( $_GET['page'] > $totalPages || $_GET['page'] <= 0 ) {
+        $page = 1;
+    }
+
+    $posts = selectAllPublishPostsWithUsers('posts', 'users', $limit, $offset );
+    $topPosts = selectAll('posts', ['status' => 1, 'category_id' => 14] );
 ?>
 
 
@@ -28,33 +39,39 @@ include "app/database/db.php";
 </head>
 <body>
 <!-- MENU-->
-<?php include("app/include/header.php") ?>
+<?php include 'app/include/header.php' ?>
 
-<!--Carousel START-->
+<!--Carousel -->
 <div class=" container ">
     <div class="row">
         <h2 class="slider-title"> Top posts </h2>
     </div>
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-inner " style="">
-            <div class="carousel-item active ">
-                <img src="assets/images/img4.jpeg" class="cover d-block w-100 " alt="Slider Image">
+            <?php foreach ( $topPosts as $key => $post ): ?>
+                <?php if ( $key == 0 ): ?>
+                    <div class="carousel-item active ">
+                <?php else: ?>
+                        <div class="carousel-item  ">
+                <?php endif; ?>
+                <img src="
+                    <?php
+                        if ( file_exists(BASE_URL . '/assets/images/posts/' . $post['img']) ) {
+                            echo BASE_URL . '/assets/images/posts/' . $post['img'];
+                        } else {
+                            echo BASE_URL . '/assets/images/img2.png';
+                        }
+
+                    ?>" class="cover d-block w-100 " alt=" <?=$post['title'] ?>">
                 <div class="carousel-caption-hack carousel-caption d-none d-md-block">
-                    <h5><a href="#">First slide label</a> </h5>
+                    <h5>
+                        <a href="<?= BASE_URL . 'single.php?post=' . $post['id']?>">
+                            <?= mb_substr($post['title'], 0, 30, 'UTF-8').'...' ?>
+                        </a>
+                    </h5>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="assets/images/img6.jpg" class="cover d-block w-100" alt="Slider Image">
-                <div class=" carousel-caption-hack carousel-caption d-none d-md-block">
-                    <h5><a href="#">First slide label</a></h5>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="assets/images/img5.jpg" class="cover d-block w-100" alt="Slider Image">
-                <div class="carousel-caption-hack carousel-caption d-none d-md-block">
-                    <h5><a href="#">First slide label</a>l</h5>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -66,82 +83,59 @@ include "app/database/db.php";
         </button>
     </div>
 </div>
-<!--Carousel END-->
-<!-- MAIN -->
+<!--Carousel-->
 
+
+<!-- MAIN -->
 <div class="container">
     <div class="content row">
         <!--    MAIN CONTENT-->
         <div class="main-content col-md-9">
             <h2>Latest posts </h2>
-
+            <?php foreach ( $posts as $key => $post ): ?>
             <div class="post row ">
                 <div class="img col-12 col-md-4">
-                    <img src="assets/images/img2.png" alt="Post" class="img-thumbnail">
+                    <img src="
+                    <?php
+                    if ( file_exists(BASE_URL . '/assets/images/posts/' . $post['img']) ) {
+                        echo BASE_URL . '/assets/images/posts/' . $post['img'];
+                    } else {
+                        echo BASE_URL . '/assets/images/img2.png';
+                    }
+
+                    ?>" alt="<?= $post['title'] ?>" class="img-thumbnail">
                 </div>
                 <div class="post_text col-12 col-md-8">
                     <h3>
-                        <a href="single.php">Post about dynamic website</a>
+                        <a href="<?= BASE_URL . 'single.php?post=' . $post['id']?>">
+                            <?php echo substr($post['title'], 0, 40)?>
+                        </a>
                     </h3>
-                    <span><i class="fa-regular fa-user"></i> Writer Name  </span>
-                    <span><i class="fa-solid fa-calendar-days"></i> May 11, 2019 </span>
+
+                    <span class="mr-3"><i class="fa-regular fa-user mr-2"></i> <?= $post['username'] ?></span>
+
+                    <span><i class="fa-solid fa-calendar-days mr-2 "></i> <?= $post['created_date'] ?></span>
                     <p class="preview-text">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        <?= $post['content'] ?>
                     </p>
-
                 </div>
             </div>
-            <div class="post row ">
-                <div class="img col-12 col-md-4">
-                    <img src="assets/images/img2.png" alt="Post" class="img-thumbnail">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a href="single.php">Post about dynamic website</a>
-                    </h3>
-                    <span><i class="fa-regular fa-user">  </i> Writer Name</span>
-                    <span><i class="fa-solid fa-calendar-days"></i> May 11, 2019 </span>
-                    <p class="preview-text">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
+            <?php endforeach; ?>
 
-                </div>
-                </div>
-
-            </div>
-        <!--    SIDEBAR CONTENT-->
-        <div class="sidebar col-md-3">
-
-            <div class="section search">
-                <h3> Search</h3>
-                    <form action="/" method="post" >
-                        <input type="text" name="search-term" class="text-input"  placeholder="Search">
-                    </form>
-
-            </div>
-
-            <div class="section topics">
-                <h3>Topics</h3>
-                <ul>
-                    <li><a href="#">Poems</a></li>
-                    <li><a href="#">Quotes</a></li>
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Motivation</a></li>
-                    <li><a href="#">Inspiration</a></li>
-                    <li><a href="#">Life Lessons</a></li>
-                </ul>
-            </div>
-
+            <!-----PAGINATION------------>
+            <?php include  'app/include/pagination.php'?>
         </div>
+
+        <!--    SIDEBAR CONTENT-->
+        <?php include 'app/include/sidebar.php' ?>
     </div>
 </div>
 
-<!-- END MAIN -->
+
 
 <!--FOOTER-->
-<?php include("app/include/footer.php")?>
-<!--END FOOTER-->
+<?php include 'app/include/footer.php' ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
-include "path.php" ;
-include "app/controllers/users.php";
+include 'path.php' ;
+include 'app/controllers/users.php';
 ?>
 
 <!doctype html>
@@ -24,16 +24,12 @@ include "app/controllers/users.php";
 </head>
 <body>
 <!-- MENU-->
-<?php include("app/include/header.php") ?>
-<!--END HEADER-->
-
+<?php include 'app/include/header.php' ?>
 
 <div class="container register_form">
     <form class="row justify-content-center " action="login.php" method="post">
         <h2 class="">Login</h2>
-        <div class="mb-3 col-12 col-md-4 error">
-            <p> <?= $errMsg ?> </p>
-        </div>
+        <?php include 'app/helpers/errorInfo.php' ?>
         <div class="A-100"></div>
         <div class="mb-3 col-12 col-md-4">
             <label for="exampleFormControlInput1" class="form-label">Login</label>
@@ -54,8 +50,8 @@ include "app/controllers/users.php";
 
 
 <!--FOOTER-->
-<?php include("app/include/footer.php")?>
-<!--END FOOTER-->
+<?php include 'app/include/footer.php' ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

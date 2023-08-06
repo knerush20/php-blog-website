@@ -1,4 +1,9 @@
-<?php include("path.php") ?>
+<?php
+
+include 'path.php';
+include 'app/controllers/categories.php';
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -21,8 +26,9 @@
 </head>
 <body>
 <!-- MENU-->
-<?php include("app/include/header.php") ?>
-<!-- END MENU-->
+<?php include 'app/include/header.php' ?>
+
+
 <!--MAIN-->
 <div class="container">
     <div class="content row">
@@ -42,24 +48,20 @@
 
             <div class="section search">
                 <h3> Search</h3>
-                <form action="/" method="post" >
-                    <label>
-                        <input type="text" name="search-term" class="text-input"  placeholder="Search">
-                    </label>
+                <form action="search.php" method="post" >
+                    <input type="text" name="search-term" class="text-input"  placeholder="Search">
                 </form>
 
             </div>
 
             <div class="section topics">
-                <h3>Topics</h3>
+                <h3>Categories</h3>
                 <ul>
-                    <li><a href="#">Poems</a></li>
-                    <li><a href="#">Quotes</a></li>
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Motivation</a></li>
-                    <li><a href="#">Inspiration</a></li>
-                    <li><a href="#">Life Lessons</a></li>
+                    <?php foreach ( $categories as $key => $category ): ?>
+                        <li>
+                            <a href="<?= BASE_URL . 'category.php?id=' . $category['id'] ?>"><?= $category['name']; ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 
@@ -67,11 +69,11 @@
     </div>
 
 </div>
-<!--END MAIN-->
+
 
 <!--FOOTER-->
-<?php include("app/include/footer.php")?>
-<!--END FOOTER-->
+<?php include 'app/include/footer.php' ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

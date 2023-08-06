@@ -1,6 +1,8 @@
 <?php
-include "path.php" ;
+include 'path.php' ;
+include 'app/controllers/categories.php';
 
+$post = selectPostByIdWithAuthor( 'posts', 'users', $_GET['post'] );
 ?>
 
 <!doctype html>
@@ -23,81 +25,52 @@ include "path.php" ;
     <title>My blog</title>
 </head>
 <body>
-
-<?php include("app/include/header.php") ?>
+<!--MENU-->
+<?php include 'app/include/header.php' ?>
 
 
 <!-- MAIN -->
 
 <div class="container">
     <div class="content row">
-        <!--    MAIN CONTENT-->
+
         <div class="main-content col-md-9">
-            <h2>The main text of the article</h2>
+            <h2><?= $post['title'] ?></h2>
 
             <div class="single_post row ">
                 <div class="img col-12">
-                    <img src="assets/images/img2.png" alt="Post" class="img-thumbnail">
+                    <img src="<?php
+                    if ( file_exists(BASE_URL . '/assets/images/posts/' . $post['img']) ) {
+                        echo BASE_URL . '/assets/images/posts/' . $post['img'];
+                    } else {
+                        echo BASE_URL . '/assets/images/img2.png';
+                    }
+
+                    ?>"  alt="<?= $post['title'] ?>" class="img-thumbnail">
                 </div>
                 <div class="info">
-                    <span><i class="fa-regular fa-user"></i> Writer Name  </span>
-                    <span><i class="fa-solid fa-calendar-days"></i> May 11, 2019 </span>
+                    <i class="fa-regular fa-user mr-3"></i>
+                    <span><?= $post['username'] ?></span>
+                   <i class="fa-solid fa-calendar-days ml-3 "></i>
+                    <span><?= $post['created_date'] ?></span>
                 </div>
                 <div class="single_post_text col-12">
-                    <h3> Article name.</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the <a href="#">printing </a> and typesetting industry.
-                    </p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-
+                    <?= $post['content'] ?>
                 </div>
             </div>
 
         </div>
         <!--    SIDEBAR CONTENT-->
-        <div class="sidebar col-md-3">
-
-            <div class="section search">
-                <h3> Search</h3>
-                <form action="/" method="post" >
-                    <label>
-                        <input type="text" name="search-term" class="text-input"  placeholder="Search">
-                    </label>
-                </form>
-
-            </div>
-
-            <div class="section topics">
-                <h3>Topics</h3>
-                <ul>
-                    <li><a href="#">Poems</a></li>
-                    <li><a href="#">Quotes</a></li>
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Motivation</a></li>
-                    <li><a href="#">Inspiration</a></li>
-                    <li><a href="#">Life Lessons</a></li>
-                </ul>
-            </div>
-
-        </div>
+        <?php include 'app/include/sidebar.php' ?>
 
     </div>
 </div>
 
-<!-- END MAIN -->
+
 
 <!--FOOTER-->
-<?php include("app/include/footer.php")?>
-<!--END FOOTER-->
+<?php include 'app/include/footer.php' ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
