@@ -41,7 +41,15 @@ $category = selectOne('categories', ['id' => $_GET['id']]);
                     <?php foreach ( $posts as $key => $post ): ?>
                         <div class="post row ">
                             <div class="img col-12 col-md-4">
-                                <img src="<?= BASE_URL . '/assets/images/posts/' . $post['img'] ?>" alt="<?= $post['title'] ?>" class="img-thumbnail">
+                                <img src="
+                                <?php
+                                    if ( file_exists(BASE_URL . '/assets/images/posts/' . $post['img']) ) {
+                                        echo BASE_URL . '/assets/images/posts/' . $post['img'];
+                                    } else {
+                                        echo BASE_URL . '/assets/images/img2.png';
+                                    }
+
+                                ?>" alt="<?= $post['title'] ?>" class="img-thumbnail">
                             </div>
                             <div class="post_text col-12 col-md-8">
                                 <h3>
