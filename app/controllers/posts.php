@@ -19,9 +19,7 @@ $postsUserName = selectAllFromPostWithUsers('posts', 'users');
 
 function imageUpload()
 {
-
     if ( !empty($_FILES['img']['name']) ) {
-
         $imgName = time() . "_" . $_FILES['img']['name'];
         $fileTmpName = $_FILES['img']['tmp_name'];
         $fileType = $_FILES['img']['type'];
@@ -29,7 +27,7 @@ function imageUpload()
 
         if ( !str_contains($fileType, 'image') ) {
             $errMsg[] = 'Only images can be uploaded';
-            return $errMsg;
+            return false;
         } else {
             $result = move_uploaded_file($fileTmpName, $destination);
 
@@ -37,18 +35,19 @@ function imageUpload()
                 $_POST['img'] = $imgName;
             } else {
                 $errMsg[] = 'Server uploading error.';
-                return $errMsg;
+
+                return false;
             }
         }
 
     } else {
         $errMsg[] = 'Error while get image';
-        return $errMsg;
+        return false;
     }
 
 }
 
-//-----------CREATE POST--------------------//
+//create post
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_create']) ) {
 
     $errMsg[] = imageUpload();
@@ -60,7 +59,6 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_create']) ) {
     $publish = trim($_POST['publish']) !== null ? 1 : 0;
 
     if ( $title === '' || $content === '' || $category === '' ) {
-
         $errMsg[] = 'Not all required fields are filled.';
     } elseif ( mb_strlen($title, 'UTF-8') < 7 ) {
         $errMsg[] = 'Post name length should be more then 7 symbols';
@@ -89,7 +87,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_create']) ) {
 
 }
 
-//------------UPDATE POST---------------------//
+//update post
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id']) ) {
 
     $post = selectOne('posts', ['id' =>  $_GET['id']]);
@@ -110,29 +108,36 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_edit']) ) {
     $category = trim($_POST['category']);
 
     $publish = isset($_POST['publish']) ? 1 : 0;
-//    TODO IF IMAGE WAS NOT UPDATED DONT SEND EMPTY FIELD TO DATABASE
-    $errMsg[] = imageUpload();
+
     if ( $title === '' || $content === '' || $category === '' ) {
         $errMsg[] = 'Not all required fields are filled.';
     } elseif ( mb_strlen($title, 'UTF-8') < 7 ) {
         $errMsg[] = 'Post name length should be more then 7 symbols';
     } else {
-        $post = [
-            'user_id' => $_SESSION['id'],
-            'title' => $title,
-            'content' => $content,
-            'img' => $_POST['img'],
-            'status' => $publish,
-            'category_id' => $category,
-        ];
-
+        if ( $_POST['img'] === '' || $_POST['img'] === NULL ) {
+            $post = [
+                'user_id' => $_SESSION['id'],
+                'title' => $title,
+                'content' => $content,
+                'status' => $publish,
+                'category_id' => $category,
+            ];
+        } else {
+            $post = [
+                'user_id' => $_SESSION['id'],
+                'title' => $title,
+                'content' => $content,
+                'img' => $_POST['img'],
+                'status' => $publish,
+                'category_id' => $category,
+            ];
+        }
         update('posts', $id , $post);
-
         header('location: ' . BASE_URL . 'admin/posts/index.php');
-
     }
+
 }
-//---------------UPDATE POST STATUS---------------------//
+//update post status
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['publish_id']) ) {
 
     $id = $_GET['publish_id'];
@@ -143,7 +148,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['publish_id']) ) {
     exit();
 }
 
-//---------------DELETE POST---------------------//
+//delete post
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id']) ) {
 
     $id = $_GET['delete_id'];
