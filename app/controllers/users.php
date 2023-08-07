@@ -3,7 +3,7 @@ include SITE_ROOT .  '/app/database/db.php';
 
 $errMsg = [];
 $users = selectAll('users');
-
+$routeName = 'users';
 function authUser($user)
 {
     $_SESSION['id'] = $user['id'];

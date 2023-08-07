@@ -35,11 +35,7 @@ include_once SITE_ROOT . '/app/controllers/users.php';
 
 
         <div class="posts col-9">
-            <div class="button row">
-                <a href=" <?= BASE_URL . 'admin/users/create.php'?>" class="col-2 btn btn-success">Add</a>
-                <span class="col-1"></span>
-                <a href="<?= BASE_URL . 'admin/users/index.php'?>" class="col-3 btn btn-secondary">Manage</a>
-            </div>
+            <?php  include SITE_ROOT . '/app/include/manage-btn-admin.php' ?>
 
             <div class="row title-table">
                 <h2>Add user</h2>

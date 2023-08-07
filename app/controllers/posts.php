@@ -2,6 +2,8 @@
 
 include SITE_ROOT . '/app/database/db.php';
 
+$routeName = 'posts';
+
 if ( !$_SESSION ) {
     header('location:' . BASE_URL . 'login.php');
 }

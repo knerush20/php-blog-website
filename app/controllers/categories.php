@@ -7,8 +7,10 @@ $categories = selectAll('categories');
 $name = '';
 $id = '';
 $description = '';
+$routeName = 'categories';
 
-//-----------CREATE CATEGORY--------------------//
+
+//create category
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_create'])) {
 
     $name = trim($_POST['name']);
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_create'])) {
 }
 
 
-//------------EDITE CATEGORY---------------------//
+//edit category
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $id = $_GET['id'];
     $category = selectOne('categories', ['id' => $id]);
@@ -76,7 +78,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_edit'])) {
     }
 }
 
-//---------------DELETE CATEGORY---------------------//
+//delete category
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
 
     $id = $_GET['delete_id'];

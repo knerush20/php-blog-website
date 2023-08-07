@@ -36,11 +36,7 @@ include SITE_ROOT . '/app/controllers/categories.php';
 
 
         <div class="posts col-9">
-            <div class="button row">
-                <a href=" <?=BASE_URL . 'admin/categories/create.php'?> " class="col-2 btn btn-success">Add</a>
-                <span class="col-1"></span>
-                <a href="<?=BASE_URL . 'admin/categories/index.php'?>" class="col-2 btn btn-secondary">Manage</a>
-            </div>
+            <?php include SITE_ROOT . '/app/include/manage-btn-admin.php' ?>
 
             <div class="row title-table">
                 <h2>Manage categories</h2>

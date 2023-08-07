@@ -35,11 +35,7 @@ include_once SITE_ROOT . '/app/controllers/users.php';
         <?php include SITE_ROOT . '/app/include/sidebar-admin.php' ?>
 
         <div class="posts col-9">
-            <div class="button row">
-                <a href=" <?= BASE_URL . 'admin/users/create.php'?>" class="col-2 btn btn-success">Add</a>
-                <span class="col-1"></span>
-                <a href="<?= BASE_URL . 'admin/users/index.php'?>" class="col-3 btn btn-secondary">Manage</a>
-            </div>
+            <?php  include SITE_ROOT . '/app/include/manage-btn-admin.php' ?>
 
             <div class="row title-table">
                 <h2>Manage users</h2>
@@ -53,7 +49,7 @@ include_once SITE_ROOT . '/app/controllers/users.php';
             <div class="row posts-container">
                 <?php foreach ( $users as $key => $user ): ?>
                     <div class="row post">
-                        <div class="id col-1"><?= $key+1 ?></div>
+                        <div class="id col-1"><?= $key + 1 ?></div>
                         <div class="login col-2"><?= $user['username'] ?></div>
                         <div class="email col-3"><?= $user['email'] ?></div>
                         <?php if ( $user['admin'] == 1 ): ?>
