@@ -1,44 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<header class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <h1>
-                    <a href="<?= BASE_URL ?>">My Blog</a>
-                </h1>
-            </div>
-            <nav class="col-8">
-                <ul>
-                    <li><a href="<?= BASE_URL ?>">Home</a>  </li>
-                    <li><a href="<?= BASE_URL . 'about.php' ?>">About</a> </li>
-                    <li><a href="#">Services</a> </li>
+    <!--  Bootstrap      -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-                    <li>
-                        <?php if ( isset($_SESSION['id']) ): ?>
-                            <a href="#">
-                                <i class="fa-regular fa-user"></i>
-                                <?= $_SESSION['login'] ?>
-                            </a>
 
-                            <ul>
-                                <?php if ( $_SESSION['admin'] ): ?>
+    <!--    Fontawesome-->
+    <script src="https://kit.fontawesome.com/4811f92f9b.js" crossorigin="anonymous"></script>
 
-                                <li><a href="<?= BASE_URL . 'admin/posts/index.php' ?>">Admin panel</a></li>
-                                <?php endif; ?>
-                                <li><a href="<?= BASE_URL . 'logout.php' ?>">Exit</a> </li>
-                            </ul>
-                        <?php else: ?>
-                            <a href="<?= BASE_URL . 'login.php' ?>">
-                                <i class="fa-regular fa-user"></i>
-                                Login
-                            </a>
-                            <ul>
-                                <li><a href="<?= BASE_URL . 'register.php' ?>">Registration</a></li>
-                            </ul>
-                        <?php endif; ?>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
+    <!--    Custom Styling-->
+    <link rel="stylesheet" href="<?= BASE_URL . 'assets/css/style.css' ?>">
+    <?php if (str_contains($_SERVER['REQUEST_URI'], 'admin')): ?>
+        <link rel="stylesheet" href="<?= BASE_URL . 'assets/css/admin.css' ?>">
+    <?php endif; ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>My blog</title>
+</head>
+<body>

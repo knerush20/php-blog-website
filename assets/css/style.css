@@ -373,3 +373,14 @@ REGISTER
 .text-center .err ul li {
     margin-left: -120px;
 }
+
+/*
+pagination
+*/
+
+.page-link{
+    color: #000;
+}
+.page-link:hover {
+    color: #008484 ;
+}
